@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Title/>
-      <Body/>
+      <Body samples={SAMPLES}/>
     </div>
   );
 }
@@ -29,12 +29,12 @@ function LoginButton(){
   )
 }
 
-function Body(){
+function Body({samples}){
   return(
     <div className='pageBody'>
       <div className='content'>
         <ContentTopBar/>
-        <TableContent/>
+        <TableContent samples={samples}/>
       </div>
     </div>
   )
@@ -69,17 +69,17 @@ function SearchBar(){
     <form action="" className="searchBar">
       <input type="text" placeholder="Search" name="q"/>
       <button type="submit">
-          <img src={searchIcon}/>
+          <img src={searchIcon} alt=''/>
       </button>
     </form>
   )
 }
 
-function TableContent(){
+function TableContent({samples}){
   return(
     <div className='tableContent'>
       <TableTop/>
-      <TableData/>
+      <TableData samples={samples}/>
       <TableBottom/>
     </div>
   )
@@ -88,19 +88,27 @@ function TableContent(){
 function TableTop(){
   return(
     <div className='tableTop'>
-      <div class="tableTopElement">Name</div>
-      <div class="tableTopElement">Monnig Number</div>
-      <div class="tableTopElement">Country</div>
-      <div class="tableTopElement">Class</div>
-      <div class="tableTopElement">Group</div>
-      <div class="tableTopElement">Year</div>
-      <div class="tableTopElement">Weight</div>
+      <div className="tableTopElement">Name</div>
+      <div className="tableTopElement">Monnig Number</div>
+      <div className="tableTopElement">Country</div>
+      <div className="tableTopElement">Class</div>
+      <div className="tableTopElement">Group</div>
+      <div className="tableTopElement">Year</div>
+      <div className="tableTopElement">Weight</div>
     </div>
   )
 }
 
-function TableData(){
-
+function TableData({samples}){
+  const rows = [];
+  samples.forEach((sample) => {
+    rows.push(
+      <DataRow sample={sample} key={sample.id}/>
+    );
+  })
+  return(
+    <div>{rows}</div>
+  )
 }
 
 function TableBottom(){
@@ -109,13 +117,52 @@ function TableBottom(){
       <div>Results</div>
       <div>1-n</div>
       <div className='tableNavigation'>
-        <div class="goTo">.</div>
-        <div class="goTo">1</div>
-        <div class="goTo">2</div>
-        <div class="goTo">.</div>
+        <div className="goTo">.</div>
+        <div className="goTo">1</div>
+        <div className="goTo">2</div>
+        <div className="goTo">.</div>
       </div>
     </div>
   )
 }
+
+function DataRow({sample}){
+  return(
+    <div className='dataRow'>
+      <div className="nameCell">{ sample.name }</div>
+      <div>{ sample.monnig_number }</div>
+      <div>{ sample.country }</div>
+      <div>{ sample.sample_class }</div>
+      <div>{ sample.group }</div>
+      <div>{ sample.date_found_year }</div>
+      <div>{ sample.sample_weight_g }</div>
+    </div>
+  )
+}
+
+const SAMPLES = [
+  {
+      "id": "1799332469972013056",
+      "name": "Abbott",
+      "monnig_number": "M398.1",
+      "country": "USA",
+      "sample_class": "Ordinary Chondrite",
+      "group": "H",
+      "date_found_year": "1951",
+      "sample_weight_g": 325.1,
+      "loan": null
+  },
+  {
+      "id": "1799332469976207360",
+      "name": "Abee",
+      "monnig_number": "M499.2",
+      "country": "Canada",
+      "sample_class": "Enstatite Chondrite",
+      "group": "EH",
+      "date_found_year": "1952",
+      "sample_weight_g": 453.1,
+      "loan": null
+  }
+]
 
 export default App;

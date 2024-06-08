@@ -154,3 +154,14 @@ body{
 .goTo{
   cursor: pointer;
 }
+
+.dataRow{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  background-color: #A9A9A9;
+}
+
+.nameCell{
+  text-decoration: underline;
+  cursor: pointer;
+}
